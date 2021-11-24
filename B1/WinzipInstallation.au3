@@ -1,10 +1,11 @@
 ; Run the winzip installer
-$a = Run("winzip90.exe")
-ConsoleWrite($a)
+#RequireAdmin
+Run("winzip90.exe")
+
 ; Initial Setup Screen
 WinWaitActive("WinZip® 9.0 SR-1 Setup", "&Setup")
 Send("!s")
-ConsoleWrite("A")
+
 ; Install location
 WinWaitActive("WinZip Setup", "into the following folder")
 Send("{ENTER}")
