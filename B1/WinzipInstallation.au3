@@ -38,8 +38,11 @@ Send("!n")
 
 ; Completed installation screen
 WinWaitActive("WinZip Setup", "Thank you for installing this evaluation version")
+Send("{TAB}")
+Send("{TAB}")
 Send("{ENTER}")
 
 ; Wait for winzip to load then close it
 WinWaitActive("WinZip (Evaluation Version)")
 WinClose("WinZip (Evaluation Version)")
+ConsoleWrite("done")
