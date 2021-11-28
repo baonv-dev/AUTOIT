@@ -11,8 +11,8 @@ _SQLite_Query(-1, "SELECT * FROM tbl_link", $hQuery)
 _SQLite_FetchNames($hQuery, $aNames)
 
 $oLinks = _IELinkGetCollection($oIE)
-Local $oInputs = _IEBodyReadText($oIE)
-Local $aResult = StringRegExp($oInputs, '(NukeViet)', $STR_REGEXPARRAYMATCH)
+;~ Local $oInputs = _IEBodyReadText($oIE)
+;~ Local $aResult = StringRegExp($oInputs, '(NukeViet)', $STR_REGEXPARRAYMATCH)
 
 ;~ Hiển thị tên bảng
 ;~ ConsoleWrite(StringFormat(" %-10d  %-25s  %-10d", $aNames[0], $aNames[1], $aNames[2]) & @CRLF)
