@@ -20,9 +20,8 @@ If @error = $_WD_ERROR_Success Then
    _SQLite_Open("form.db")
    _SQLite_Query(-1, "SELECT * FROM tbl_form_info", $hQuery)
    _WD_Navigate($sSession, "http://localhost:8080/nukeviet/vi/contact/")
-   _WD_LoadWait($sSession, 2000)
+   _WD_LoadWait($sSession, 4000)
    While _SQLite_FetchData($hQuery, $aRow, False, False) = $SQLITE_OK
-	  $all = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input")
 	  $ftitle = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='ftitle']")
 	  $fname = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='fname']")
 	  $femail = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='femail']")
@@ -54,7 +53,7 @@ If @error = $_WD_ERROR_Success Then
 		 EndIf
 		 $SQLUPDATESTRING = "UPDATE tbl_form_info SET status = " & _SQLite_Escape($text_error) & " WHERE id = " &$aRow[0]&";"
 		 _SQLite_Exec(-1, $SQLUPDATESTRING)
-		 Sleep(2000)
+		 Sleep(4000)
 		 _WD_Action($sSession,"refresh")
 	  EndIf
    WEnd
