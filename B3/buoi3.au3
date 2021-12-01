@@ -47,7 +47,7 @@ If @error = $_WD_ERROR_Success Then
 		 If $hasError <> '' Then
 			$ObjScreenShot = _WD_Screenshot($sSession, $sElement)
 			$FileName = $input_error&'.png'
-			$FilePath = FileOpen(@scriptdir&"/Screenshoot/"&'case_id_'&$aRow[0]&'_'&$FileName, 9)
+			$FilePath = FileOpen(@scriptdir&"/Screenshoot/"&'case_id_'&$aRow[0]&'_'&$FileName, 18)
 			FileWrite($FilePath, $ObjScreenShot)
 			FileClose($FilePath)
 			$text_error = $input_error;
