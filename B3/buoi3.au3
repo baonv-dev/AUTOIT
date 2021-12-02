@@ -19,9 +19,9 @@ If @error = $_WD_ERROR_Success Then
    _SQLite_Startup()
    _SQLite_Open("form.db")
    _SQLite_Query(-1, "SELECT * FROM tbl_form_info", $hQuery)
-   _WD_Navigate($sSession, "http://localhost:8080/nukeviet/vi/contact/")
-   _WD_LoadWait($sSession, 4000)
    While _SQLite_FetchData($hQuery, $aRow, False, False) = $SQLITE_OK
+	  _WD_Navigate($sSession, "http://localhost:8080/nukeviet/vi/contact/")
+	  _WD_LoadWait($sSession, 4000)
 	  $ftitle = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='ftitle']")
 	  $fname = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='fname']")
 	  $femail = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@name='femail']")
@@ -40,9 +40,11 @@ If @error = $_WD_ERROR_Success Then
 		 _WD_ElementAction($sSession, $faddress, 'value', $aRow[6])
 		 _WD_ElementAction($sSession, $fcon, 'value', $aRow[7])
 		 _WD_ElementAction($sSession, $sButton, 'click')
+		 Sleep(2000)
+		 _WD_LoadWait($sSession)
 		 $hasError = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@class='form-group has-error']")
 		 $input_error = _WD_ElementAction($sSession, $hasError, 'Text')
-		 $text_error = "Không có lỗi";
+		 $text_error = "OK";
 		 If $hasError <> '' Then
 			$ObjScreenShot = _WD_Screenshot($sSession, $sElement)
 			$FileName = $input_error&'.png'
@@ -51,11 +53,13 @@ If @error = $_WD_ERROR_Success Then
 			FileClose($FilePath)
 			$text_error = $input_error;
 		 EndIf
-		 $SQLUPDATESTRING = "UPDATE tbl_form_info SET status = " & _SQLite_Escape($text_error) & " WHERE id = " &$aRow[0]&";"
-		 _SQLite_Exec(-1, $SQLUPDATESTRING)
-		 Sleep(4000)
-		 _WD_Action($sSession,"refresh")
+;~ 		 _WD_Action($sSession,"refresh")
+	  Else
+		 $text_error = "LOAD FAIL"
 	  EndIf
+	  $SQLUPDATESTRING = "UPDATE tbl_form_info SET status = " & _SQLite_Escape($text_error) & " WHERE id = " &$aRow[0]&";"
+	  _SQLite_Exec(-1, $SQLUPDATESTRING)
+	  Sleep(4000)
    WEnd
 EndIf
 
